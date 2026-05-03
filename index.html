@@ -41,6 +41,10 @@
     * { margin:0; padding:0; box-sizing:border-box; }
     body { font-family:'Inter',sans-serif; background:var(--bg); color:var(--text); min-height:100vh; -webkit-font-smoothing:antialiased; }
 
+    /* COUNTER ANIMATION */
+    @keyframes countUp { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:translateY(0); } }
+    .stat-num { animation: countUp 0.6s ease both; }
+
     /* SCROLLBAR */
     ::-webkit-scrollbar { width:4px; }
     ::-webkit-scrollbar-track { background:var(--bg); }
@@ -231,7 +235,14 @@
     .pstat-num.wins { color:var(--green); }
     .pstat-num.losses { color:var(--red); }
     .pstat-label { font-size:0.65rem; color:var(--text3); text-transform:uppercase; letter-spacing:1px; margin-top:0.3rem; }
+    .streak-wrap { display:flex; gap:4px; flex-wrap:wrap; margin:0.75rem 0; }
+    .streak-dot { width:28px; height:28px; border-radius:6px; display:flex; align-items:center; justify-content:center; font-size:0.72rem; font-weight:700; }
+    .streak-dot.w { background:var(--green-glow); color:var(--green); border:1px solid rgba(34,197,94,0.3); }
+    .streak-dot.l { background:var(--red-glow); color:var(--red); border:1px solid rgba(239,68,68,0.2); }
     .recent-label { font-size:0.72rem; font-weight:600; color:var(--text3); text-transform:uppercase; letter-spacing:1.5px; margin-bottom:0.75rem; }
+    .chart-wrap { background:var(--bg3); border:1px solid var(--border); border-radius:12px; padding:1rem; margin-bottom:1rem; }
+    .chart-title { font-size:0.72rem; font-weight:600; color:var(--text3); text-transform:uppercase; letter-spacing:1.5px; margin-bottom:0.75rem; }
+    .chart-svg { width:100%; overflow:visible; }
     .mini-match { display:flex; justify-content:space-between; align-items:center; padding:0.6rem 0; border-bottom:1px solid var(--border); font-size:0.82rem; }
     .mini-match:last-child { border-bottom:none; }
     .mini-result.win { color:var(--green); font-weight:600; }
@@ -395,6 +406,9 @@
   </section>
 
   <section id="sec-ljestvica" class="section active">
+    <div style="display:flex;justify-content:flex-end;margin-bottom:1rem;">
+      <button onclick="exportLjestvica()" style="background:var(--bg3);border:1px solid var(--border2);color:var(--text2);font-family:'Inter',sans-serif;font-size:0.78rem;font-weight:500;padding:0.4rem 0.9rem;border-radius:8px;cursor:pointer;transition:all 0.2s;" onmouseover="this.style.borderColor='var(--orange)';this.style.color='var(--orange)'" onmouseout="this.style.borderColor='var(--border2)';this.style.color='var(--text2)'">↓ Izvezi ljestvicu</button>
+    </div>
     <div id="ljestvica-container">
       <div class="loading"><div class="spinner"></div>Učitavam...</div>
     </div>
@@ -579,10 +593,10 @@ async function loadAll() {
   allMatches = matches || [];
   const confirmed = allMatches.filter(m => m.status === 'Potvrđeno');
   const pending = allMatches.filter(m => m.status === 'Čeka Potvrdu');
-  document.getElementById('stat-mecevi').textContent = allMatches.length;
-  document.getElementById('stat-potvrdjeni').textContent = confirmed.length;
-  document.getElementById('stat-ceka').textContent = pending.length;
-  document.getElementById('stat-igraci').textContent = allPlayers.length;
+  animateCount('stat-mecevi', allMatches.length);
+  animateCount('stat-potvrdjeni', confirmed.length);
+  animateCount('stat-ceka', pending.length);
+  animateCount('stat-igraci', allPlayers.length);
   renderMatches('sve');
   renderLjestvica();
   renderRezultati();
@@ -783,6 +797,8 @@ function openPlayer(email) {
         <div class="pstat"><div class="pstat-num wins">${s.wins}</div><div class="pstat-label">Pobjede</div></div>
         <div class="pstat"><div class="pstat-num losses">${s.losses}</div><div class="pstat-label">Porazi</div></div>
       </div>
+      ${renderStreak(getStreak(email))}
+      ${renderPointsChart(email)}
       ${pm.length ? renderRecentMatches(pm, email) : '<p style="color:var(--text3);font-size:0.82rem;text-align:center;padding:1rem 0;">Nema odigranih mečeva.</p>'}
     </div>
 
@@ -1081,6 +1097,128 @@ function mobileNav(id) {
   document.getElementById('mobile-menu').classList.remove('open');
   document.getElementById('hamburger').classList.remove('open');
   if(id==='admin') renderAdminPanel();
+}
+
+// ---- ANIMATE COUNT ----
+function animateCount(id, target) {
+  const el = document.getElementById(id);
+  if(!el) return;
+  const duration = 800;
+  const start = performance.now();
+  const startVal = 0;
+  function update(now) {
+    const elapsed = now - start;
+    const progress = Math.min(elapsed / duration, 1);
+    const eased = 1 - Math.pow(1 - progress, 3);
+    el.textContent = Math.round(startVal + (target - startVal) * eased);
+    if(progress < 1) requestAnimationFrame(update);
+  }
+  requestAnimationFrame(update);
+}
+
+// ---- STREAK ----
+function getStreak(email) {
+  const confirmed = allMatches.filter(m => m.status === 'Potvrđeno');
+  const playerMatches = confirmed
+    .filter(m => [m.winner1_email,m.winner2_email,m.loser1_email,m.loser2_email].includes(email))
+    .slice(0, 8)
+    .reverse();
+  return playerMatches.map(m => {
+    const isWin = m.winner1_email===email || m.winner2_email===email;
+    return isWin ? 'w' : 'l';
+  });
+}
+
+function renderStreak(streak) {
+  if(!streak.length) return '';
+  return '<div class="streak-wrap">'
+    + streak.map(s => '<div class="streak-dot '+s+'">'+(s==='w'?'W':'L')+'</div>').join('')
+    + '</div>';
+}
+
+// ---- POINTS CHART ----
+function renderPointsChart(email) {
+  const confirmed = allMatches
+    .filter(m => m.status==='Potvrđeno' && [m.winner1_email,m.winner2_email,m.loser1_email,m.loser2_email].includes(email))
+    .slice().reverse();
+
+  if(confirmed.length < 2) return '';
+
+  const player = allPlayers.find(p=>p.email===email);
+  let pts = Number(player?.initial_points)||0;
+  const points = [pts];
+  confirmed.forEach(m => {
+    const isWin = m.winner1_email===email || m.winner2_email===email;
+    pts += isWin ? 2 : 1;
+    points.push(pts);
+  });
+
+  const W = 300, H = 80;
+  const minP = Math.min(...points);
+  const maxP = Math.max(...points);
+  const range = maxP - minP || 1;
+
+  const toX = i => (i / (points.length-1)) * W;
+  const toY = v => H - ((v - minP) / range) * (H - 10) - 5;
+
+  const pathD = points.map((v,i) => (i===0?'M':'L')+toX(i).toFixed(1)+','+toY(v).toFixed(1)).join(' ');
+  const areaD = pathD + ' L'+W+','+H+' L0,'+H+' Z';
+
+  const dots = points.map((v,i) =>
+    '<circle cx="'+toX(i).toFixed(1)+'" cy="'+toY(v).toFixed(1)+'" r="3" fill="var(--orange)"/>'
+  ).join('');
+
+  return '<div class="chart-wrap">'
+    + '<div class="chart-title">Napredak bodova</div>'
+    + '<svg class="chart-svg" viewBox="0 0 '+W+' '+H+'" preserveAspectRatio="none" style="height:80px;">'
+    + '<defs><linearGradient id="chartGrad" x1="0" y1="0" x2="0" y2="1">'
+    + '<stop offset="0%" stop-color="var(--orange)" stop-opacity="0.3"/>'
+    + '<stop offset="100%" stop-color="var(--orange)" stop-opacity="0"/>'
+    + '</linearGradient></defs>'
+    + '<path d="'+areaD+'" fill="url(#chartGrad)"/>'
+    + '<path d="'+pathD+'" fill="none" stroke="var(--orange)" stroke-width="2" stroke-linejoin="round"/>'
+    + dots
+    + '<text x="2" y="12" fill="var(--text3)" font-size="9">'+maxP+'</text>'
+    + '<text x="2" y="'+(H-2)+'" fill="var(--text3)" font-size="9">'+minP+'</text>'
+    + '</svg>'
+    + '</div>';
+}
+
+// ---- EXPORT LJESTVICA ----
+function exportLjestvica() {
+  const stats = calcStats();
+  const sorted = Object.values(stats).filter(s=>s.wins>0||s.losses>0).sort((a,b)=>b.points-a.points||b.wins-a.wins);
+  const date = new Date().toLocaleDateString('hr-HR');
+
+  const rows = sorted.map((p,i) =>
+    '<tr style="border-bottom:1px solid #333;">'
+    + '<td style="padding:8px 12px;font-weight:700;color:'+(i===0?'#f59e0b':i===1?'#94a3b8':i===2?'#b45309':'#888')+'">'+(i+1)+'</td>'
+    + '<td style="padding:8px 12px;font-weight:600;color:#f0f0f0;">'+p.name+'</td>'
+    + '<td style="padding:8px 12px;text-align:center;color:#22c55e;">'+p.wins+'</td>'
+    + '<td style="padding:8px 12px;text-align:center;color:#ef4444;">'+p.losses+'</td>'
+    + '<td style="padding:8px 12px;text-align:center;font-weight:700;color:#ff6b2b;font-size:1.1rem;">'+p.points+'</td>'
+    + '</tr>'
+  ).join('');
+
+  const html = '<!DOCTYPE html><html><head><meta charset="UTF-8"/>'
+    + '<style>body{margin:0;background:#0d0d0d;font-family:Inter,sans-serif;padding:2rem;}'
+    + 'table{width:100%;border-collapse:collapse;}'
+    + 'th{padding:10px 12px;text-align:left;font-size:0.72rem;text-transform:uppercase;letter-spacing:1.5px;color:#606060;border-bottom:1px solid #333;}'
+    + 'th:nth-child(n+3){text-align:center;}'
+    + '</style></head><body>'
+    + '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5rem;">'
+    + '<div style="font-family:sans-serif;font-size:1.5rem;font-weight:700;color:#f0f0f0;">TK <span style="color:#ff6b2b;">Buje</span></div>'
+    + '<div style="font-size:0.8rem;color:#606060;">Ljestvica · '+date+'</div>'
+    + '</div>'
+    + '<table><tr><th>#</th><th>Igrač</th><th>W</th><th>L</th><th>Pts</th></tr>'+rows+'</table>'
+    + '</body></html>';
+
+  const blob = new Blob([html], {type:'text/html'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'tkbuje-ljestvica-'+date.replace(/\./g,'-')+'.html';
+  a.click();
+  showToast('Ljestvica preuzeta! ↓', 'success');
 }
 
 async function init() {
