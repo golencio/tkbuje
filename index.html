@@ -262,7 +262,7 @@
     .btn-reject:hover { background:var(--red); color:white; }
     .player-admin-row { display:grid; grid-template-columns:1fr 1fr 50px 36px; padding:0.7rem 1.25rem; border-bottom:1px solid var(--border); align-items:center; font-size:0.85rem; }
     .player-admin-row:last-child { border-bottom:none; }
-    .match-admin-row { display:grid; grid-template-columns:44px 1fr auto 36px; padding:0.7rem 1.25rem; border-bottom:1px solid var(--border); align-items:center; gap:0.5rem; font-size:0.85rem; }
+    .match-admin-row { display:grid; grid-template-columns:44px 1fr auto auto 36px; padding:0.7rem 1.25rem; border-bottom:1px solid var(--border); align-items:center; gap:0.5rem; font-size:0.85rem; }
     .match-admin-row:last-child { border-bottom:none; }
 
     /* TOAST */
@@ -483,6 +483,52 @@
     </div>
     <button class="btn-primary" id="submit-match-btn" onclick="submitMatch()">Pošalji na potvrdu</button>
     <p class="form-note">Admin mora potvrditi meč da bi se bodovi dodijelili.</p>
+  </div>
+</div>
+
+<!-- MODAL: Edit meča -->
+<div class="modal-overlay" id="modal-edit-match">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('modal-edit-match')">×</button>
+    <div class="modal-title">Uredi Meč</div>
+    <div class="form-section">
+      <div class="form-section-label" style="color:var(--green);">🏆 Pobjednički par</div>
+      <div class="form-row">
+        <div class="form-group" style="margin:0">
+          <label>Pobjednik 1 *</label>
+          <select id="edit-w1"></select>
+        </div>
+        <div class="form-group" style="margin:0">
+          <label>Pobjednik 2</label>
+          <select id="edit-w2"></select>
+        </div>
+      </div>
+    </div>
+    <div class="form-section" style="background:rgba(239,68,68,0.04);border-color:rgba(239,68,68,0.12);">
+      <div class="form-section-label" style="color:var(--red);">😔 Poraženi par</div>
+      <div class="form-row">
+        <div class="form-group" style="margin:0">
+          <label>Poraženi 1 *</label>
+          <select id="edit-l1"></select>
+        </div>
+        <div class="form-group" style="margin:0">
+          <label>Poraženi 2</label>
+          <select id="edit-l2"></select>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Rezultat *</label>
+      <input type="text" id="edit-score" placeholder="6:4, 6:3"/>
+    </div>
+    <div class="form-group">
+      <label>Status</label>
+      <select id="edit-status">
+        <option value="Potvrđeno">Potvrđeno</option>
+        <option value="Čeka Potvrdu">Čeka Potvrdu</option>
+      </select>
+    </div>
+    <button class="btn-primary" id="save-edit-match-btn" onclick="saveEditMatch()">💾 Spremi promjene</button>
   </div>
 </div>
 
@@ -1026,6 +1072,7 @@ function renderAdminPanel() {
             <div style="font-size:0.75rem;color:var(--text3);">vs ${pname(m.loser1_email)}${m.loser2_email?' & '+pname(m.loser2_email):''} · ${m.notes||'—'} · ${fmtDate(m.created_at)}</div>
           </div>
           <span style="font-size:0.65rem;font-weight:600;padding:0.2rem 0.5rem;border-radius:20px;white-space:nowrap;${m.status==='Potvrđeno'?'background:var(--green-glow);color:var(--green)':'background:rgba(245,158,11,0.1);color:var(--gold)'}">${m.status==='Potvrđeno'?'✓':'⏳'}</span>
+          <button onclick="openEditMatch('${m.id}')" style="background:var(--bg3);border:1px solid var(--border2);color:var(--text2);padding:0.25rem 0.6rem;border-radius:6px;cursor:pointer;font-size:0.75rem;transition:all 0.2s;" onmouseover="this.style.borderColor='var(--orange)';this.style.color='var(--orange)'" onmouseout="this.style.borderColor='var(--border2)';this.style.color='var(--text2)'">✏️</button>
           <button onclick="deleteMatch('${m.id}',${m.match_number})" style="background:none;border:none;color:var(--text3);cursor:pointer;font-size:1rem;transition:color 0.15s;" onmouseover="this.style.color='var(--red)'" onmouseout="this.style.color='var(--text3)'">🗑</button>
         </div>`).join('')}
     </div>`;
@@ -1068,6 +1115,73 @@ async function removePlayer(id,name) {
   if(error){showToast('Greška','error');return;}
   showToast(name+' uklonjen/a.','');
   await loadAll(); renderAdminPanel();
+}
+
+let editMatchId = null;
+
+function openEditMatch(id) {
+  editMatchId = id;
+  const m = allMatches.find(x=>x.id===id);
+  if(!m) return;
+
+  const opts = allPlayers.map(p=>`<option value="${p.email}">${p.name}</option>`).join('');
+  const emptyOpt = '<option value="">— nije parovi —</option>';
+  const emptyReq = '<option value="">— odaberi —</option>';
+
+  ['edit-w1','edit-l1'].forEach(id => {
+    document.getElementById(id).innerHTML = emptyReq + opts;
+  });
+  ['edit-w2','edit-l2'].forEach(id => {
+    document.getElementById(id).innerHTML = emptyOpt + opts;
+  });
+
+  document.getElementById('edit-w1').value = m.winner1_email || '';
+  document.getElementById('edit-w2').value = m.winner2_email || '';
+  document.getElementById('edit-l1').value = m.loser1_email || '';
+  document.getElementById('edit-l2').value = m.loser2_email || '';
+  document.getElementById('edit-score').value = m.notes || '';
+  document.getElementById('edit-status').value = m.status || 'Čeka Potvrdu';
+
+  openModal('modal-edit-match');
+}
+
+async function saveEditMatch() {
+  const w1 = document.getElementById('edit-w1').value;
+  const w2 = document.getElementById('edit-w2').value;
+  const l1 = document.getElementById('edit-l1').value;
+  const l2 = document.getElementById('edit-l2').value;
+  const score = document.getElementById('edit-score').value.trim();
+  const status = document.getElementById('edit-status').value;
+
+  if(!w1||!l1||!score) { showToast('Ispuni obavezna polja!','error'); return; }
+
+  const sel = [w1,w2,l1,l2].filter(Boolean);
+  if(new Set(sel).size !== sel.length) { showToast('Isti igrač ne može biti na obje strane!','error'); return; }
+
+  const btn = document.getElementById('save-edit-match-btn');
+  btn.disabled=true; btn.textContent='Spremam...';
+
+  const updates = {
+    winner1_email: w1,
+    winner2_email: w2 || null,
+    loser1_email: l1,
+    loser2_email: l2 || null,
+    notes: score,
+    status: status
+  };
+  if(status === 'Potvrđeno') {
+    updates.potvrdio_admin = currentPlayer.email;
+    updates.vrijeme_potvrde = new Date().toISOString();
+  }
+
+  const {error} = await sb.from('matches').update(updates).eq('id', editMatchId);
+  btn.disabled=false; btn.textContent='💾 Spremi promjene';
+
+  if(error) { showToast('Greška: '+error.message,'error'); return; }
+  showToast('Meč ažuriran! ✓','success');
+  closeModal('modal-edit-match');
+  await loadAll();
+  renderAdminPanel();
 }
 
 async function deleteMatch(id,num) {
