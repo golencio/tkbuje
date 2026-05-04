@@ -592,7 +592,6 @@ function renderPyramid() {
           if(isMyTeam) cardExtra += '<div style="margin-top:0.5rem;font-size:0.7rem;color:var(--orange);font-weight:600;">MOJ TIM</div>';
           if(hasPendingChallenge) cardExtra += '<div style="margin-top:0.4rem;font-size:0.68rem;color:var(--gold);">⏳ Aktivan izazov</div>';
           if(inCooldown && !isMyTeam) {
-            // Izračunaj preostalo vrijeme cooldowna
             const lastDecline = allChallenges
               .filter(c=>c.challenged_id===t.id && c.status==='declined')
               .sort((a,b)=>new Date(b.updated_at)-new Date(a.updated_at))[0];
@@ -600,6 +599,20 @@ function renderPyramid() {
               const cooldownEnd = new Date(new Date(lastDecline.updated_at).getTime() + 3*24*60*60*1000);
               const hoursLeft = Math.ceil((cooldownEnd - new Date()) / 3600000);
               cardExtra += '<div style="margin-top:0.4rem;font-size:0.68rem;color:var(--red);">🛡 Zaštita još ' + hoursLeft + 'h</div>';
+            }
+          }
+
+          // Odbrojavanje do kazne (stepenica 2+, nije u kazni)
+          if(!t.penalty && t.step > 1) {
+            const lastMatch = t.last_match_at ? new Date(t.last_match_at) : new Date(t.created_at);
+            const daysInactive = Math.floor((new Date() - lastMatch) / (1000*60*60*24));
+            const daysLeft = 20 - daysInactive;
+            if(daysLeft <= 0) {
+              cardExtra += '<div style="margin-top:0.4rem;font-size:0.68rem;color:var(--red);font-weight:600;">⚠️ Kazna!</div>';
+            } else if(daysLeft <= 5) {
+              cardExtra += '<div style="margin-top:0.4rem;font-size:0.68rem;color:var(--red);">⚠️ Kazna za ' + daysLeft + ' dan(a)</div>';
+            } else {
+              cardExtra += '<div style="margin-top:0.4rem;font-size:0.68rem;color:var(--text3);">📅 ' + daysLeft + ' dana do kazne</div>';
             }
           }
 
@@ -1161,9 +1174,9 @@ function renderAdmin() {
       <div>
         ${allTeams.map(t => {
           const captain = allPlayers.find(p=>p.email===t.captain_email);
-          return `<div style="display:grid;grid-template-columns:1fr auto auto;padding:0.75rem 1.25rem;border-bottom:1px solid var(--border);align-items:center;gap:0.75rem;">
+          return `<div style="display:grid;grid-template-columns:1fr auto auto auto auto;padding:0.75rem 1.25rem;border-bottom:1px solid var(--border);align-items:center;gap:0.5rem;">
             <div>
-              <div style="font-weight:600;font-size:0.88rem;">${t.nickname} <span style="color:var(--text3);font-weight:400;font-size:0.78rem;">${t.name}</span></div>
+              <div style="font-weight:600;font-size:0.88rem;">${t.name}</div>
               <div style="font-size:0.75rem;color:var(--text3);">Stepenica ${t.step} · 👑 ${captain?.name||t.captain_email}</div>
             </div>
             <button onclick="openEditTeam('${t.id}')" style="background:var(--bg3);border:1px solid var(--border2);color:var(--text2);padding:0.3rem 0.6rem;border-radius:6px;cursor:pointer;font-size:0.75rem;">✏️ Edit</button>
