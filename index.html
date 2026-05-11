@@ -392,14 +392,11 @@
   <div class="header-inner">
     <div class="logo">TK <span>Buje</span></div>
     <nav>
-      <a href="https://golencio.github.io/tkbuje-portal/" class="portal-link">🏠 Portal</a>
-      <a href="https://golencio.github.io/tkbuje-piramida/" class="portal-link">🔺 Piramida</a>
-      <a href="https://turniri.tkbuje.hr/" class="portal-link">🎾 Buje Mix</a>
-      <a href="https://isias.tkbuje.hr/" class="portal-link">🧓 Išijas Liga</a>
-      <button id="nav-mecevi" onclick="showSection('mecevi',this)">Mečevi</button>
       <button class="active" id="nav-ljestvica" onclick="showSection('ljestvica',this)">Ljestvica</button>
+      <button id="nav-mecevi" onclick="showSection('mecevi',this)">Mečevi</button>
       <button id="nav-rezultati" onclick="showSection('rezultati',this)">Rezultati</button>
       <button class="admin-btn" id="admin-nav-btn" style="display:none" onclick="showSection('admin',this)">⚙ Admin</button>
+      <a href="https://golencio.github.io/tkbuje-portal/" class="portal-link">🏠 Portal</a>
       <div class="user-badge" id="user-badge" style="display:none">
         <div class="user-avatar-placeholder" id="user-initials">?</div>
         <span class="user-name" id="user-name-display"></span>
@@ -417,15 +414,12 @@
     <div class="user-avatar-placeholder" id="mobile-initials">?</div>
     <span style="color:var(--text);font-weight:600;font-size:0.9rem;" id="mobile-name"></span>
   </div>
-  <a href="https://golencio.github.io/tkbuje-portal/" class="mobile-link">🏠 Portal</a>
-  <a href="https://golencio.github.io/tkbuje-piramida/" class="mobile-link">🔺 Piramida</a>
-  <a href="https://turniri.tkbuje.hr/" class="mobile-link">🎾 Buje Mix</a>
-  <a href="https://isias.tkbuje.hr/" class="mobile-link">🧓 Išijas Liga</a>
-  <button onclick="mobileNav('mecevi')" id="mob-mecevi">🎾 Mečevi</button>
-  <button onclick="mobileNav('ljestvica')" id="mob-ljestvica" class="active">🏆 Ljestvica</button>
-  <button onclick="mobileNav('rezultati')" id="mob-rezultati">📋 Rezultati</button>
+  <button onclick="mobileNav('ljestvica')" id="mob-ljestvica" class="active">Ljestvica</button>
+  <button onclick="mobileNav('mecevi')" id="mob-mecevi">Mečevi</button>
+  <button onclick="mobileNav('rezultati')" id="mob-rezultati">Rezultati</button>
   <button onclick="mobileNav('admin')" id="mob-admin" class="mobile-admin-btn" style="display:none">⚙ Admin</button>
-  <button onclick="logout()" class="mobile-logout">← Odjava</button>
+  <a href="https://golencio.github.io/tkbuje-portal/" class="mobile-link">🏠 Portal</a>
+  <button onclick="logout()" class="mobile-logout">Odjava</button>
 </div>
 
 <div class="hero">
