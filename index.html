@@ -354,6 +354,127 @@
       .pending-row { grid-template-columns:1fr; }
       .lb-header, .lb-row { grid-template-columns:40px 1fr 55px 55px 65px; padding:0.7rem 0.9rem; }
     }
+  
+
+    /* MODERN TEST-STYLE REFRESH FOR MAIN TK BUJE APP */
+    body { background:
+      radial-gradient(900px 500px at 10% -10%, rgba(255,107,43,0.13), transparent 60%),
+      radial-gradient(800px 500px at 85% 0%, rgba(59,130,246,0.10), transparent 55%),
+      linear-gradient(180deg, #07101a 0%, #0d0d0d 42%, #070707 100%);
+    }
+    header { background:rgba(7,16,26,0.86); border-bottom:1px solid rgba(255,255,255,0.09); box-shadow:0 12px 35px rgba(0,0,0,0.35); }
+    .header-inner, .hero-inner, .stats-inner, main { max-width:1220px; }
+    .header-inner { height:68px; }
+    .logo { font-size:1.35rem; letter-spacing:-0.3px; }
+    .logo:before { content:'◯'; color:var(--gold); margin-right:0.55rem; filter:drop-shadow(0 0 12px rgba(245,158,11,0.45)); }
+    nav button, .portal-link { padding:0.55rem 0.9rem; border-radius:12px; }
+    nav button.active { box-shadow:inset 3px 0 0 var(--orange); background:linear-gradient(90deg, rgba(255,107,43,0.18), rgba(255,107,43,0.06)); }
+    .hero { background:rgba(7,16,26,0.55); border-bottom:1px solid rgba(255,255,255,0.08); }
+    .hero-title { letter-spacing:-2px; }
+    .section-title { font-size:1.45rem; margin-bottom:1.1rem; display:flex; align-items:center; gap:0.55rem; }
+    .section-title:after { content:''; height:1px; flex:1; background:linear-gradient(90deg, rgba(255,107,43,0.35), transparent); }
+    .match-card, .leaderboard-wrap, .admin-section, .modal, .stats-club-card, .admin-modern-card, .analytics-card {
+      background:linear-gradient(180deg, rgba(18,31,46,0.82), rgba(13,13,13,0.78));
+      border:1px solid rgba(255,255,255,0.10);
+      box-shadow:0 18px 40px rgba(0,0,0,0.22);
+    }
+    .match-card { border-radius:18px; }
+    .match-card:hover { transform:translateY(-2px); box-shadow:0 22px 48px rgba(0,0,0,0.32); }
+    .leaderboard-wrap { border-radius:22px; overflow:hidden; }
+    .lb-header { background:rgba(255,255,255,0.035); }
+    .lb-row { grid-template-columns:56px 1fr 74px 74px 90px; }
+    .lb-row:hover { background:rgba(255,255,255,0.055); }
+    .rank-badge { border-radius:14px; }
+    .filters { background:rgba(255,255,255,0.035); border:1px solid var(--border); padding:0.45rem; border-radius:999px; width:max-content; max-width:100%; }
+    .filter-btn { border:none; background:transparent; font-weight:700; }
+    .filter-btn.active { background:linear-gradient(135deg, rgba(255,107,43,0.28), rgba(245,158,11,0.14)); box-shadow:0 8px 24px rgba(255,107,43,0.12); }
+    .add-match-btn { border-radius:999px; box-shadow:0 10px 24px rgba(255,107,43,0.18); }
+
+    .stats-club-hero { display:grid; grid-template-columns:1.35fr 0.65fr; gap:1rem; margin-bottom:1rem; }
+    .stats-club-card { border-radius:22px; padding:1.15rem; overflow:hidden; position:relative; }
+    .stats-club-card:before { content:''; position:absolute; inset:-40% -20% auto auto; width:220px; height:220px; background:radial-gradient(circle, rgba(255,107,43,0.18), transparent 65%); pointer-events:none; }
+    .stats-club-title { font-family:'Space Grotesk',sans-serif; font-size:1.35rem; font-weight:800; margin-bottom:0.25rem; position:relative; }
+    .stats-club-sub { color:var(--text3); font-size:0.82rem; margin-bottom:1rem; position:relative; }
+    .stats-leader-row { display:grid; grid-template-columns:52px 1fr auto; gap:0.85rem; align-items:center; padding:0.78rem 0; border-bottom:1px solid var(--border); position:relative; }
+    .stats-leader-row:last-child { border-bottom:none; }
+    .stats-rank { width:42px; height:42px; display:flex; align-items:center; justify-content:center; border-radius:14px; background:rgba(255,255,255,0.06); color:var(--gold); font-family:'Space Grotesk',sans-serif; font-weight:900; }
+    .stats-rank.gold { background:rgba(245,158,11,0.16); border:1px solid rgba(245,158,11,0.35); }
+    .stats-metric { text-align:right; }
+    .stats-metric strong { display:block; color:var(--orange); font-size:1.35rem; font-family:'Space Grotesk',sans-serif; }
+    .stats-metric span { color:var(--text3); font-size:0.7rem; text-transform:uppercase; letter-spacing:0.8px; }
+    .stats-grid-modern { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:1rem; margin-bottom:1rem; }
+    .stat-mini-modern { background:linear-gradient(180deg, rgba(18,31,46,0.82), rgba(13,13,13,0.78)); border:1px solid rgba(255,255,255,0.10); border-radius:18px; padding:1rem 1.05rem; position:relative; overflow:hidden; box-shadow:0 18px 40px rgba(0,0,0,0.20); }
+    .stat-mini-modern:after { content:''; position:absolute; right:-20px; top:-22px; width:80px; height:80px; background:rgba(255,255,255,0.035); border-radius:50%; }
+    .stat-mini-icon { font-size:1.55rem; margin-bottom:0.55rem; }
+    .stat-mini-label { font-size:0.72rem; color:var(--text3); text-transform:uppercase; letter-spacing:0.8px; margin-bottom:0.35rem; }
+    .stat-mini-value { font-family:'Space Grotesk',sans-serif; font-size:1.75rem; font-weight:800; color:var(--orange); }
+    .stats-tabs { display:flex; flex-wrap:wrap; gap:0.5rem; margin-bottom:1rem; background:rgba(255,255,255,0.035); border:1px solid var(--border); padding:0.45rem; border-radius:999px; width:max-content; max-width:100%; }
+    .stats-tab { background:transparent; border:none; color:var(--text2); border-radius:999px; padding:0.48rem 0.85rem; font-family:'Inter',sans-serif; font-size:0.78rem; font-weight:800; cursor:pointer; }
+    .stats-tab.active { color:var(--orange); background:linear-gradient(135deg, rgba(255,107,43,0.28), rgba(245,158,11,0.14)); }
+    .stats-table-modern { width:100%; border-collapse:separate; border-spacing:0 0.35rem; font-size:0.84rem; }
+    .stats-table-modern th { text-align:left; color:var(--text3); font-size:0.7rem; text-transform:uppercase; letter-spacing:0.8px; padding:0.65rem 0.5rem; }
+    .stats-table-modern td { padding:0.72rem 0.5rem; color:var(--text2); vertical-align:middle; background:rgba(255,255,255,0.035); }
+    .stats-table-modern tbody td:first-child { border-radius:12px 0 0 12px; }
+    .stats-table-modern tbody td:last-child { border-radius:0 12px 12px 0; }
+    .stats-player { color:var(--text); font-weight:800; cursor:pointer; }
+    .stats-points { font-family:'Space Grotesk',sans-serif; color:var(--orange); font-weight:900; font-size:1rem; }
+    .form-pill { font-size:0.68rem; font-weight:800; border-radius:999px; padding:0.18rem 0.38rem; margin-right:0.16rem; display:inline-block; }
+    .form-win { color:var(--green); background:var(--green-glow); border:1px solid rgba(34,197,94,0.25); }
+    .form-loss { color:var(--red); background:var(--red-glow); border:1px solid rgba(239,68,68,0.25); }
+    .form-empty { color:var(--text3); }
+
+    .admin-modern { display:flex; flex-direction:column; gap:1rem; }
+    .admin-topline { display:flex; justify-content:space-between; align-items:flex-start; gap:1rem; }
+    .admin-title { font-family:'Space Grotesk',sans-serif; font-size:1.35rem; font-weight:800; color:var(--text); letter-spacing:-0.3px; }
+    .admin-subtitle { color:var(--text3); font-size:0.86rem; margin-top:0.25rem; line-height:1.45; }
+    .admin-status-pill { border-radius:999px; padding:0.45rem 0.75rem; font-size:0.74rem; font-weight:800; letter-spacing:0.8px; white-space:nowrap; color:var(--green); background:var(--green-glow); border:1px solid rgba(34,197,94,0.28); }
+    .admin-tabs { display:flex; gap:0.45rem; overflow-x:auto; padding:0.4rem; background:rgba(255,255,255,0.035); border:1px solid var(--border); border-radius:16px; position:sticky; top:72px; z-index:50; backdrop-filter:blur(18px); }
+    .admin-tab { flex:0 0 auto; background:transparent; border:none; color:var(--text2); font-family:'Inter',sans-serif; font-size:0.8rem; font-weight:700; padding:0.55rem 0.8rem; border-radius:12px; cursor:pointer; transition:all 0.18s; }
+    .admin-tab.active { color:var(--orange); background:var(--orange-glow); box-shadow:inset 0 0 0 1px rgba(255,107,43,0.25); }
+    .admin-metrics-grid { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:0.75rem; }
+    .admin-metric-card { background:linear-gradient(180deg, rgba(255,255,255,0.045), rgba(255,255,255,0.018)); border:1px solid var(--border); border-radius:18px; padding:1rem; min-height:110px; display:flex; flex-direction:column; justify-content:space-between; box-shadow:0 12px 28px rgba(0,0,0,0.18); }
+    .admin-metric-label { color:var(--text3); font-size:0.7rem; font-weight:800; text-transform:uppercase; letter-spacing:0.8px; }
+    .admin-metric-value { font-family:'Space Grotesk',sans-serif; font-size:2rem; font-weight:900; color:var(--orange); line-height:1; margin:0.55rem 0; }
+    .admin-metric-sub { color:var(--text3); font-size:0.78rem; line-height:1.35; }
+    .admin-two-col { display:grid; grid-template-columns:1fr 1fr; gap:0.85rem; }
+    .admin-modern-card { border-radius:18px; overflow:hidden; }
+    .admin-panel-head { display:flex; align-items:center; justify-content:space-between; gap:1rem; padding:0.9rem 1rem; border-bottom:1px solid var(--border); font-weight:800; color:var(--text); background:rgba(255,255,255,0.035); }
+    .admin-row { display:grid; grid-template-columns:44px 1fr auto; gap:0.75rem; align-items:center; padding:0.85rem 1rem; border-bottom:1px solid var(--border); }
+    .admin-row:last-child { border-bottom:none; }
+    .admin-row.important { background:rgba(255,107,43,0.045); }
+    .admin-row-icon { width:36px; height:36px; border-radius:12px; display:flex; align-items:center; justify-content:center; background:rgba(255,107,43,0.1); color:var(--orange); font-size:1rem; font-weight:900; }
+    .admin-row-title { color:var(--text); font-weight:800; font-size:0.9rem; line-height:1.35; }
+    .admin-row-title span { color:var(--text3); font-weight:600; font-size:0.78rem; margin:0 0.15rem; }
+    .admin-row-meta { color:var(--text3); font-size:0.78rem; line-height:1.45; margin-top:0.15rem; }
+    .admin-row-actions { display:flex; gap:0.45rem; flex-wrap:wrap; justify-content:flex-end; align-items:center; }
+    .admin-quick-grid { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:0.75rem; padding:1rem; }
+    .admin-quick-card { text-align:left; background:rgba(255,255,255,0.035); border:1px solid var(--border); border-radius:14px; padding:0.9rem; color:var(--text); cursor:pointer; transition:all 0.18s; }
+    .admin-quick-card:hover { transform:translateY(-2px); border-color:var(--border2); background:rgba(255,255,255,0.055); }
+    .admin-quick-card strong { display:block; font-size:0.9rem; margin-bottom:0.25rem; }
+    .admin-quick-card span { color:var(--text3); font-size:0.76rem; line-height:1.35; }
+    .admin-small-btn, .admin-danger-small { background:var(--bg3); border:1px solid var(--border2); color:var(--text2); padding:0.38rem 0.65rem; border-radius:7px; cursor:pointer; font-size:0.76rem; font-weight:700; }
+    .admin-danger-small { color:var(--red); background:var(--red-glow); border-color:rgba(239,68,68,0.25); }
+    .admin-form-grid { display:grid; grid-template-columns:1fr 1fr; gap:0.75rem; padding:1rem; }
+    .admin-modern-card .btn-primary { width:calc(100% - 2rem); margin:0.2rem 1rem 1rem; }
+    .admin-empty-small { color:var(--text3); font-size:0.86rem; padding:1.2rem; text-align:center; }
+    @media(max-width:900px) { .stats-club-hero, .admin-two-col { grid-template-columns:1fr; } .stats-grid-modern, .admin-metrics-grid { grid-template-columns:repeat(2,1fr); } .admin-quick-grid { grid-template-columns:repeat(2,1fr); } }
+    @media(max-width:700px) {
+      .header-inner { height:58px; }
+      .hero { padding:1.35rem 1rem 1rem; }
+      main { padding:1rem; }
+      .stats-tabs, .filters { width:100%; border-radius:18px; }
+      .stats-tab, .filter-btn { flex:1 1 calc(50% - 0.5rem); }
+      .stats-grid-modern, .admin-metrics-grid, .admin-quick-grid, .admin-form-grid { grid-template-columns:1fr; }
+      .stats-table-modern { font-size:0.76rem; }
+      .stats-table-modern th:nth-child(5), .stats-table-modern td:nth-child(5) { display:none; }
+      .admin-tabs { top:58px; border-radius:14px; }
+      .admin-topline { flex-direction:column; }
+      .admin-row { grid-template-columns:36px 1fr; }
+      .admin-row-actions { grid-column:2; justify-content:flex-start; width:100%; }
+      .admin-row-actions button { flex:1 1 auto; }
+      .lb-header, .lb-row { grid-template-columns:42px 1fr 52px 52px 62px; padding:0.75rem 0.8rem; }
+    }
+
   </style>
 </head>
 <body>
@@ -384,6 +505,7 @@
       <button class="active" id="nav-ljestvica" onclick="showSection('ljestvica',this)">Ljestvica</button>
       <button id="nav-mecevi" onclick="showSection('mecevi',this)">Mečevi</button>
       <button id="nav-rezultati" onclick="showSection('rezultati',this)">Rezultati</button>
+      <button id="nav-statistika" onclick="showSection('statistika',this)">📊 Statistika</button>
       <button class="admin-btn" id="admin-nav-btn" style="display:none" onclick="showSection('admin',this)">⚙ Admin</button>
       <a href="https://golencio.github.io/tkbuje-portal/" class="portal-link">🏠 Portal</a>
       <div class="user-badge" id="user-badge" style="display:none">
@@ -406,6 +528,7 @@
   <button onclick="mobileNav('ljestvica')" id="mob-ljestvica" class="active">Ljestvica</button>
   <button onclick="mobileNav('mecevi')" id="mob-mecevi">Mečevi</button>
   <button onclick="mobileNav('rezultati')" id="mob-rezultati">Rezultati</button>
+  <button onclick="mobileNav('statistika')" id="mob-statistika">📊 Statistika</button>
   <button onclick="mobileNav('admin')" id="mob-admin" class="mobile-admin-btn" style="display:none">⚙ Admin</button>
   <a href="https://golencio.github.io/tkbuje-portal/" class="mobile-link">🏠 Portal</a>
   <button onclick="logout()" class="mobile-logout">Odjava</button>
@@ -452,6 +575,13 @@
 
   <section id="sec-rezultati" class="section">
     <div id="rezultati-container" class="matches-grid">
+      <div class="loading"><div class="spinner"></div>Učitavam...</div>
+    </div>
+  </section>
+
+  <section id="sec-statistika" class="section">
+    <div class="section-title">📊 Statistika <span>forma, aktivnost i trendovi</span></div>
+    <div id="statistika-container">
       <div class="loading"><div class="spinner"></div>Učitavam...</div>
     </div>
   </section>
@@ -606,9 +736,32 @@
 
 <script>
 const SUPABASE_URL = 'https://aglbdjyljbzzpddrshno.supabase.co';
-const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFnbGJkanlsamJ6enBkZHJzaG5vIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzc2NTQxOTcsImV4cCI6MjA5MzIzMDE5N30.NEOJnMJiUHCEGa27xkPf2HM00KEFZC5DjcDpC6t8U6Q';
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6ImFnbGJkanlsamJ6enBkZHJzaG5vIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzc2NTQxOTcsImV4cCI6MjA5MzIzMDE5N30.NEOJnMJiUHCEGa27xkPf2HM00KEFZC5DjcDpC6t8U6Q';
 const NETLIFY_URL = 'https://golencio.github.io/tkbuje';
-const sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+const SUPABASE_REQUEST_TIMEOUT_MS = 12000;
+
+function supabaseFetchWithTimeout(input, init = {}) {
+  const controller = new AbortController();
+  const originalSignal = init.signal;
+  let originalAbortHandler = null;
+  if(originalSignal) {
+    if(originalSignal.aborted) controller.abort();
+    else {
+      originalAbortHandler = () => controller.abort();
+      originalSignal.addEventListener('abort', originalAbortHandler, { once:true });
+    }
+  }
+  const timeoutId = setTimeout(() => controller.abort(), SUPABASE_REQUEST_TIMEOUT_MS);
+  return fetch(input, { ...init, signal: controller.signal }).finally(() => {
+    clearTimeout(timeoutId);
+    if(originalSignal && originalAbortHandler) originalSignal.removeEventListener('abort', originalAbortHandler);
+  });
+}
+
+const sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY, {
+  global: { fetch: supabaseFetchWithTimeout },
+  auth: { persistSession:true, autoRefreshToken:true, detectSessionInUrl:true }
+});
 
 let allPlayers = [], allMatches = [];
 let currentUser = null, currentPlayer = null;
@@ -1467,6 +1620,254 @@ async function init() {
     else if(event==='SIGNED_OUT'){document.getElementById('login-screen').classList.add('show');}
   });
 }
+
+
+// ---- MODERN UI + STATISTICS + ADMIN PANEL UPGRADE ----
+let activeStatsTab = 'ranking';
+let activeAdminTabModern = 'overview';
+let isLoadingAllModern = false;
+let pendingReloadModern = false;
+
+function esc(v) {
+  return String(v ?? '').replace(/[&<>'"]/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[ch]));
+}
+
+function pairName(m, side) {
+  if(side === 'w') return esc(pname(m.winner1_email)) + (m.winner2_email ? ' / ' + esc(pname(m.winner2_email)) : '');
+  return esc(pname(m.loser1_email)) + (m.loser2_email ? ' / ' + esc(pname(m.loser2_email)) : '');
+}
+
+function playerInitials(name) {
+  return String(name || '?').split(' ').filter(Boolean).map(n=>n[0]).join('').substring(0,2).toUpperCase() || '?';
+}
+
+function getConfirmedMatches() {
+  return allMatches.filter(m => m.status === 'Potvrđeno');
+}
+
+function getPendingMatches() {
+  return allMatches.filter(m => m.status === 'Čeka Potvrdu');
+}
+
+function getExtendedPlayerStats() {
+  const confirmed = getConfirmedMatches();
+  const stats = {};
+  allPlayers.forEach(p => {
+    stats[p.email] = { email:p.email, name:p.name, wins:0, losses:0, points:Number(p.initial_points)||0, matches:0, form:[], partners:new Set(), opponents:new Set() };
+  });
+  confirmed.slice().reverse().forEach(m => {
+    const winners = [m.winner1_email, m.winner2_email].filter(Boolean);
+    const losers = [m.loser1_email, m.loser2_email].filter(Boolean);
+    winners.forEach(e => {
+      if(!stats[e]) return;
+      stats[e].wins++; stats[e].matches++; stats[e].points += 2; stats[e].form.push('W');
+      winners.filter(x=>x!==e).forEach(x=>stats[e].partners.add(x));
+      losers.forEach(x=>stats[e].opponents.add(x));
+    });
+    losers.forEach(e => {
+      if(!stats[e]) return;
+      stats[e].losses++; stats[e].matches++; stats[e].points += 1; stats[e].form.push('L');
+      losers.filter(x=>x!==e).forEach(x=>stats[e].partners.add(x));
+      winners.forEach(x=>stats[e].opponents.add(x));
+    });
+  });
+  return Object.values(stats).map(s => ({
+    ...s,
+    winRate: s.matches ? Math.round((s.wins / s.matches) * 100) : 0,
+    form: s.form.slice(-5),
+    partnersCount: s.partners.size,
+    opponentsCount: s.opponents.size
+  }));
+}
+
+function renderFormBadges(form) {
+  if(!form || !form.length) return '<span class="form-empty">—</span>';
+  return form.map(f => '<span class="form-pill '+(f==='W'?'form-win':'form-loss')+'">'+f+'</span>').join('');
+}
+
+function setStatsTab(tab) {
+  activeStatsTab = tab;
+  renderClubStatistics();
+}
+
+function renderStatsTable(rows, mode) {
+  if(!rows.length) return '<div class="empty">Još nema dovoljno podataka.</div>';
+  let headers = '<tr><th>#</th><th>Igrač</th><th>Mečevi</th><th>W/L</th><th>Forma</th><th style="text-align:right">Bodovi</th></tr>';
+  if(mode === 'activity') headers = '<tr><th>#</th><th>Igrač</th><th>Mečevi</th><th>Partneri</th><th>Protivnici</th><th style="text-align:right">Aktivnost</th></tr>';
+  if(mode === 'form') headers = '<tr><th>#</th><th>Igrač</th><th>Omjer</th><th>Win rate</th><th>Forma</th><th style="text-align:right">Bodovi</th></tr>';
+  return '<table class="stats-table-modern"><thead>'+headers+'</thead><tbody>' + rows.map((s,i) => {
+    if(mode === 'activity') {
+      return '<tr><td><span class="rank-badge '+(i<3?'r'+(i+1):'rn')+'">'+(i+1)+'</span></td><td class="stats-player" onclick="openPlayer(\''+esc(s.email)+'\')">'+esc(s.name)+'</td><td>'+s.matches+'</td><td>'+s.partnersCount+'</td><td>'+s.opponentsCount+'</td><td style="text-align:right" class="stats-points">'+s.matches+'</td></tr>';
+    }
+    if(mode === 'form') {
+      return '<tr><td><span class="rank-badge '+(i<3?'r'+(i+1):'rn')+'">'+(i+1)+'</span></td><td class="stats-player" onclick="openPlayer(\''+esc(s.email)+'\')">'+esc(s.name)+'</td><td>'+s.wins+' / '+s.losses+'</td><td>'+s.winRate+'%</td><td>'+renderFormBadges(s.form)+'</td><td style="text-align:right" class="stats-points">'+s.points+'</td></tr>';
+    }
+    return '<tr><td><span class="rank-badge '+(i<3?'r'+(i+1):'rn')+'">'+(i+1)+'</span></td><td class="stats-player" onclick="openPlayer(\''+esc(s.email)+'\')">'+esc(s.name)+'</td><td>'+s.matches+'</td><td>'+s.wins+' / '+s.losses+'</td><td>'+renderFormBadges(s.form)+'</td><td style="text-align:right" class="stats-points">'+s.points+'</td></tr>';
+  }).join('') + '</tbody></table>';
+}
+
+function renderClubStatistics() {
+  const container = document.getElementById('statistika-container');
+  if(!container) return;
+  const stats = getExtendedPlayerStats();
+  const active = stats.filter(s=>s.matches>0);
+  const confirmed = getConfirmedMatches();
+  const pending = getPendingMatches();
+  const sortedRanking = [...active].sort((a,b)=>b.points-a.points || b.wins-a.wins || a.name.localeCompare(b.name,'hr'));
+  const topActive = [...active].sort((a,b)=>b.matches-a.matches || b.points-a.points).slice(0,5);
+  const topForm = [...active].sort((a,b)=>b.winRate-a.winRate || b.matches-a.matches).slice(0,10);
+  const leader = sortedRanking[0];
+  let rows = sortedRanking;
+  if(activeStatsTab === 'activity') rows = [...active].sort((a,b)=>b.matches-a.matches || b.points-a.points);
+  if(activeStatsTab === 'form') rows = topForm;
+  const totalSets = confirmed.length;
+  const avgMatches = active.length ? (active.reduce((sum,s)=>sum+s.matches,0) / active.length).toFixed(1) : '0';
+  const heroRows = sortedRanking.slice(0,3).map((s,i)=>'<div class="stats-leader-row"><div class="stats-rank '+(i===0?'gold':'')+'">'+(i+1)+'</div><div><div style="font-weight:900;color:var(--text);">'+esc(s.name)+'</div><div style="font-size:0.75rem;color:var(--text3);">'+s.wins+' pobjeda · '+s.losses+' poraza</div></div><div class="stats-metric"><strong>'+s.points+'</strong><span>bodova</span></div></div>').join('') || '<div class="empty" style="padding:1rem;">Još nema ljestvice.</div>';
+  const activeHtml = topActive.length ? topActive.map((s, i) => `
+    <div style="display:flex;justify-content:space-between;gap:1rem;padding:0.58rem 0;border-bottom:1px solid var(--border);">
+      <div>
+        <strong style="color:var(--text);">${i + 1}. ${esc(s.name)}</strong>
+        <div style="font-size:0.72rem;color:var(--text3);">Forma ${renderFormBadges(s.form)}</div>
+      </div>
+      <div style="text-align:right;color:var(--orange);font-weight:900;">
+        ${s.matches}
+        <div style="font-size:0.68rem;color:var(--text3);font-weight:500;">mečeva</div>
+      </div>
+    </div>
+  `).join('') : '<div class="empty" style="padding:1rem;">Još nema aktivnosti.</div>';
+  container.innerHTML = `
+    <div class="stats-club-hero">
+      <div class="stats-club-card">
+        <div class="stats-club-title">${leader ? 'Trenutni lider: '+esc(leader.name) : 'Još nema lidera'}</div>
+        <div class="stats-club-sub">Pregled forme, bodova i aktivnosti igrača u klupskoj ljestvici.</div>
+        ${heroRows}
+      </div>
+      <div class="stats-club-card">
+        <div class="stats-club-title">Najaktivniji</div>
+        <div class="stats-club-sub">Igrači s najviše odigranih potvrđenih mečeva.</div>
+        ${activeHtml}
+      </div>
+    </div>
+    <div class="stats-grid-modern">
+      <div class="stat-mini-modern"><div class="stat-mini-icon">🎾</div><div class="stat-mini-label">Potvrđeni mečevi</div><div class="stat-mini-value">${confirmed.length}</div></div>
+      <div class="stat-mini-modern"><div class="stat-mini-icon">⏳</div><div class="stat-mini-label">Na čekanju</div><div class="stat-mini-value">${pending.length}</div></div>
+      <div class="stat-mini-modern"><div class="stat-mini-icon">👥</div><div class="stat-mini-label">Aktivni igrači</div><div class="stat-mini-value">${active.length}</div></div>
+      <div class="stat-mini-modern"><div class="stat-mini-icon">📈</div><div class="stat-mini-label">Prosjek mečeva</div><div class="stat-mini-value">${avgMatches}</div></div>
+    </div>
+    <div class="stats-tabs">
+      <button class="stats-tab ${activeStatsTab==='ranking'?'active':''}" onclick="setStatsTab('ranking')">Poredak</button>
+      <button class="stats-tab ${activeStatsTab==='activity'?'active':''}" onclick="setStatsTab('activity')">Aktivnost</button>
+      <button class="stats-tab ${activeStatsTab==='form'?'active':''}" onclick="setStatsTab('form')">Forma</button>
+    </div>
+    <div class="stats-club-card">${renderStatsTable(rows, activeStatsTab)}</div>`;
+}
+
+function adminMetricCardModern(label, value, sub) {
+  return '<div class="admin-metric-card"><div class="admin-metric-label">'+esc(label)+'</div><div class="admin-metric-value">'+esc(value)+'</div><div class="admin-metric-sub">'+esc(sub)+'</div></div>';
+}
+
+function adminPendingRowsModern(list, compact=false) {
+  if(!list.length) return '<div class="admin-empty-small">Nema mečeva za potvrdu ✓</div>';
+  const rows = (compact ? list.slice(0,3) : list).map(m => '<div class="admin-row important"><div class="admin-row-icon">⏳</div><div><div class="admin-row-title">'+pairName(m,'w')+' <span>vs</span> '+pairName(m,'l')+'</div><div class="admin-row-meta">'+esc(m.notes||'—')+' · unos: '+esc(pname(m.created_by_email))+' · '+fmtDate(m.created_at)+'</div></div><div class="admin-row-actions"><button class="btn-confirm" onclick="confirmMatch(\''+esc(m.id)+'\')">✓ Potvrdi</button><button class="btn-reject" onclick="rejectMatch(\''+esc(m.id)+'\')">✕ Odbij</button></div></div>').join('');
+  return rows + (compact && list.length > 3 ? '<button class="admin-link-btn" onclick="showAdminTabModern(\'confirmations\')" style="width:100%;padding:0.85rem;background:none;border:none;border-top:1px solid var(--border);color:var(--orange);font-weight:800;cursor:pointer;">Prikaži sve ('+list.length+') →</button>' : '');
+}
+
+function adminMatchRowsModern(list, compact=false) {
+  if(!list.length) return '<div class="admin-empty-small">Nema mečeva.</div>';
+  return (compact ? list.slice(0,5) : list).map(m => '<div class="admin-row"><div class="admin-row-icon">🎾</div><div><div class="admin-row-title">'+pairName(m,'w')+' <span>vs</span> '+pairName(m,'l')+'</div><div class="admin-row-meta">#'+esc(m.match_number)+' · '+esc(m.notes||'—')+' · '+fmtDate(m.created_at)+' · '+esc(m.status||'')</div></div><div class="admin-row-actions"><button class="admin-small-btn" onclick="openEditMatch(\''+esc(m.id)+'\')">✏️ Uredi</button><button class="admin-danger-small" onclick="deleteMatch(\''+esc(m.id)+'\','+Number(m.match_number||0)+')">🗑</button></div></div>').join('');
+}
+
+function showAdminTabModern(tab) {
+  activeAdminTabModern = tab;
+  renderAdminPanel();
+}
+
+function renderAdminPanel() {
+  const container = document.getElementById('admin-container');
+  if(!currentPlayer?.is_admin){ container.innerHTML='<div class="empty">⛔ Nemaš admin ovlasti.</div>'; return; }
+  const pending = getPendingMatches();
+  const confirmed = getConfirmedMatches();
+  const stats = getExtendedPlayerStats();
+  const activePlayers = stats.filter(s=>s.matches>0).length;
+  const tabs = [['overview','Pregled'],['confirmations','Potvrde'],['players','Igrači'],['matches','Mečevi'],['analytics','Statistika']];
+  const tabButtons = tabs.map(([id,label]) => '<button class="admin-tab '+(activeAdminTabModern===id?'active':'')+'" onclick="showAdminTabModern(\''+id+'\')">'+label+'</button>').join('');
+  let body = '';
+  if(activeAdminTabModern === 'overview') {
+    body = `
+      <div class="admin-metrics-grid">
+        ${adminMetricCardModern('Za potvrdu', pending.length, pending.length ? 'Traži admin odluku' : 'Sve riješeno')}
+        ${adminMetricCardModern('Potvrđeni mečevi', confirmed.length, 'Ulaze u bodovanje')}
+        ${adminMetricCardModern('Igrači', allPlayers.length, activePlayers+' aktivnih u ljestvici')}
+        ${adminMetricCardModern('Ukupno mečeva', allMatches.length, 'Svi statusi zajedno')}
+      </div>
+      <div class="admin-two-col">
+        <div class="admin-modern-card"><div class="admin-panel-head"><span>Mečevi za potvrdu</span><button class="admin-small-btn" onclick="showAdminTabModern('confirmations')">Sve →</button></div>${adminPendingRowsModern(pending,true)}</div>
+        <div class="admin-modern-card"><div class="admin-panel-head"><span>Zadnji mečevi</span><button class="admin-small-btn" onclick="showAdminTabModern('matches')">Sve →</button></div>${adminMatchRowsModern(allMatches,true)}</div>
+      </div>
+      <div class="admin-modern-card"><div class="admin-panel-head"><span>Brze akcije</span></div><div class="admin-quick-grid">
+        <button class="admin-quick-card" onclick="checkAndOpenMatch()"><strong>+ Novi meč</strong><span>Unesi rezultat ručno</span></button>
+        <button class="admin-quick-card" onclick="showAdminTabModern('players')"><strong>👤 Dodaj igrača</strong><span>Uredi članove i admine</span></button>
+        <button class="admin-quick-card" onclick="showAdminTabModern('confirmations')"><strong>✓ Potvrde</strong><span>Riješi mečeve na čekanju</span></button>
+        <button class="admin-quick-card" onclick="showSection('statistika', document.getElementById('nav-statistika'))"><strong>📊 Statistika</strong><span>Forma i aktivnost</span></button>
+      </div></div>`;
+  }
+  if(activeAdminTabModern === 'confirmations') body = '<div class="admin-modern-card"><div class="admin-panel-head"><span>📝 Mečevi za potvrdu ('+pending.length+')</span></div>'+adminPendingRowsModern(pending,false)+'</div>';
+  if(activeAdminTabModern === 'players') {
+    body = `<div class="admin-modern-card"><div class="admin-panel-head"><span>👤 Dodaj igrača</span></div><div class="admin-form-grid"><div class="form-group"><label>Ime i prezime *</label><input type="text" id="new-player-name" placeholder="Ime Prezime"/></div><div class="form-group"><label>Email *</label><input type="email" id="new-player-email" placeholder="ime@email.com"/></div><div class="form-group"><label>Početni bodovi</label><input type="number" id="new-player-points" value="0" min="0"/></div><div class="form-group" style="display:flex;align-items:end;"><label style="display:flex;align-items:center;gap:0.5rem;color:var(--text2);text-transform:none;letter-spacing:0;"><input type="checkbox" id="new-player-admin" style="width:16px;height:16px;accent-color:var(--orange);"/> Admin ovlasti</label></div></div><button class="btn-primary" id="add-player-btn" onclick="addPlayer()">+ Dodaj igrača</button></div>
+    <div class="admin-modern-card"><div class="admin-panel-head"><span>📋 Igrači (${allPlayers.length})</span></div>${allPlayers.map(p=>'<div class="admin-row"><div class="admin-row-icon">'+esc(playerInitials(p.name))+'</div><div><div class="admin-row-title">'+esc(p.name)+' '+(p.is_admin?'<span style="color:var(--green);">Admin</span>':'')+'</div><div class="admin-row-meta">'+esc(p.email)+' · početno '+Number(p.initial_points||0)+' bodova</div></div><div class="admin-row-actions"><button class="admin-small-btn" onclick="openEditPlayer(\''+esc(p.id)+'\')">✏️</button><button class="admin-danger-small" onclick="removePlayer(\''+esc(p.id)+'\',\''+esc(String(p.name).replace(/'/g,"\\'"))+'\')">🗑</button></div></div>').join('')}</div>`;
+  }
+  if(activeAdminTabModern === 'matches') body = '<div class="admin-modern-card"><div class="admin-panel-head"><span>🎾 Upravljanje mečevima ('+allMatches.length+')</span></div>'+adminMatchRowsModern(allMatches,false)+'</div>';
+  if(activeAdminTabModern === 'analytics') body = '<div class="admin-modern-card"><div class="admin-panel-head"><span>📊 Admin statistika</span></div><div style="padding:1rem;">'+renderStatsTable(stats.filter(s=>s.matches>0).sort((a,b)=>b.points-a.points), 'ranking')+'</div></div>';
+  container.innerHTML = '<div class="admin-modern"><div class="admin-topline"><div><div class="admin-title">Admin pregled</div><div class="admin-subtitle">Brze potvrde, igrači, mečevi i statistika bez beskonačnog skrolanja.</div></div><div class="admin-status-pill">● AKTIVAN</div></div><div class="admin-tabs">'+tabButtons+'</div>'+body+'</div>';
+}
+
+const originalShowSectionModern = showSection;
+showSection = function(id, btn) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
+  const sec = document.getElementById('sec-' + id);
+  if(sec) sec.classList.add('active');
+  if(btn) btn.classList.add('active');
+  if(id === 'admin') renderAdminPanel();
+  if(id === 'statistika') renderClubStatistics();
+};
+
+mobileNav = function(id) {
+  document.querySelectorAll('.mobile-menu button').forEach(b=>b.classList.remove('active'));
+  document.getElementById('mob-'+id)?.classList.add('active');
+  showSection(id, document.getElementById('nav-'+id));
+  document.getElementById('mobile-menu').classList.remove('open');
+  document.getElementById('hamburger').classList.remove('open');
+};
+
+const originalLoadAllModern = loadAll;
+loadAll = async function() {
+  if(isLoadingAllModern) { pendingReloadModern = true; return; }
+  isLoadingAllModern = true;
+  try {
+    await originalLoadAllModern();
+    if(document.getElementById('sec-statistika')?.classList.contains('active')) renderClubStatistics();
+    if(document.getElementById('sec-admin')?.classList.contains('active')) renderAdminPanel();
+  } finally {
+    isLoadingAllModern = false;
+    if(pendingReloadModern) { pendingReloadModern = false; loadAll(); }
+  }
+};
+
+const originalRenderLjestvicaModern = renderLjestvica;
+renderLjestvica = function() {
+  const stats = getExtendedPlayerStats();
+  const sorted = stats.filter(s=>s.matches>0).sort((a,b)=>b.points-a.points || b.wins-a.wins || a.name.localeCompare(b.name,'hr'));
+  const container = document.getElementById('ljestvica-container');
+  if(!sorted.length) { container.innerHTML='<div class="empty">Nema podataka.</div>'; return; }
+  container.innerHTML = '<div class="leaderboard-wrap"><div class="lb-header"><span>#</span><span>Igrač</span><span style="text-align:center">W</span><span style="text-align:center">L</span><span style="text-align:center">Pts</span></div>' + sorted.map((p,i)=>'<div class="lb-row '+(i===0?'top1':i===1?'top2':i===2?'top3':'')+'" style="animation-delay:'+(i*0.04)+'s" onclick="openPlayer(\''+esc(p.email)+'\')"><div class="rank-badge '+(i===0?'r1':i===1?'r2':i===2?'r3':'rn')+'">'+(i+1)+'</div><div><div class="lb-name">'+esc(p.name)+'</div><div style="font-size:0.72rem;color:var(--text3);margin-top:0.15rem;">Forma '+renderFormBadges(p.form)+'</div></div><div class="lb-stat wins">'+p.wins+'</div><div class="lb-stat losses">'+p.losses+'</div><div class="lb-stat points">'+p.points+'</div></div>').join('') + '</div>';
+};
+
+// Light realtime refresh for admin/statistics without changing database logic.
+sb.channel('tkbuje-main-live-refresh')
+  .on('postgres_changes', { event:'*', schema:'public', table:'matches' }, () => loadAll())
+  .on('postgres_changes', { event:'*', schema:'public', table:'players' }, () => loadAll())
+  .subscribe();
 
 init();
 </script>
