@@ -295,6 +295,16 @@
     .match-admin-row { display:grid; grid-template-columns:44px 1fr auto auto 36px; padding:0.7rem 1.25rem; border-bottom:1px solid var(--border); align-items:center; gap:0.5rem; font-size:0.85rem; }
     .match-admin-row:last-child { border-bottom:none; }
 
+
+
+    /* ADMIN CONFIRM POPUP */
+    .admin-popup-list { display:grid; gap:0.75rem; margin-top:0.85rem; }
+    .admin-popup-match { background:rgba(255,255,255,0.035); border:1px solid var(--border); border-radius:14px; padding:0.85rem; }
+    .admin-popup-match-title { color:var(--text); font-weight:900; font-size:0.9rem; line-height:1.35; }
+    .admin-popup-match-meta { color:var(--text3); font-size:0.78rem; margin-top:0.25rem; line-height:1.45; }
+    .admin-popup-actions { display:flex; gap:0.5rem; flex-wrap:wrap; margin-top:0.75rem; }
+    .admin-popup-actions button { flex:1 1 120px; }
+
     /* TOAST */
     .toast { position:fixed; bottom:1.5rem; left:50%; transform:translateX(-50%) translateY(100px); background:var(--bg3); color:var(--text); border:1px solid var(--border2); padding:0.7rem 1.5rem; border-radius:10px; font-size:0.85rem; font-weight:500; z-index:9999; transition:transform 0.3s cubic-bezier(0.34,1.56,0.64,1); white-space:nowrap; box-shadow:0 8px 32px rgba(0,0,0,0.4); }
     .toast.show { transform:translateX(-50%) translateY(0); }
@@ -724,6 +734,18 @@
   </div>
 </div>
 
+
+<!-- MODAL: Admin potvrde -->
+<div class="modal-overlay" id="modal-admin-confirm-popup">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('modal-admin-confirm-popup')">×</button>
+    <div class="modal-title">⚠️ Čeka potvrda rezultata</div>
+    <div id="admin-confirm-popup-content">
+      <div class="loading"><div class="spinner"></div></div>
+    </div>
+  </div>
+</div>
+
 <div class="toast" id="toast"></div>
 <footer>© 2026 TK Buje · Powered by Supabase</footer>
 
@@ -735,6 +757,7 @@ const sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
 let allPlayers = [], allMatches = [];
 let currentUser = null, currentPlayer = null;
+let adminConfirmPopupOpen = false;
 
 function showToast(msg, type='') {
   const t = document.getElementById('toast');
@@ -858,6 +881,7 @@ async function loadAll() {
   renderLjestvica();
   renderRezultati();
   renderStatistics();
+  maybeShowAdminConfirmPopup();
   if(document.getElementById('sec-admin')?.classList.contains('active')) renderAdminPanel();
 }
 
@@ -1342,6 +1366,73 @@ function adminMatchTitle(m) {
   return `🏆 ${pname(m.winner1_email)}${m.winner2_email?' & '+pname(m.winner2_email):''} <span style="color:var(--text3);font-weight:600;">vs</span> ${pname(m.loser1_email)}${m.loser2_email?' & '+pname(m.loser2_email):''}`;
 }
 
+
+function getAdminPendingMatches() {
+  return allMatches.filter(m => m.status === 'Čeka Potvrdu');
+}
+
+function maybeShowAdminConfirmPopup(force = false) {
+  if(!currentPlayer?.is_admin) return;
+  const pending = getAdminPendingMatches();
+  if(!pending.length) {
+    adminConfirmPopupOpen = false;
+    closeModal('modal-admin-confirm-popup');
+    return;
+  }
+  if(adminConfirmPopupOpen && !force) return;
+  renderAdminConfirmPopup(pending);
+  adminConfirmPopupOpen = true;
+  openModal('modal-admin-confirm-popup');
+}
+
+function renderAdminConfirmPopup(pending = getAdminPendingMatches()) {
+  const box = document.getElementById('admin-confirm-popup-content');
+  if(!box) return;
+  if(!pending.length) {
+    box.innerHTML = '<div class="empty" style="padding:1rem;">Nema mečeva za potvrdu ✓</div>';
+    return;
+  }
+  const list = pending.slice(0, 5).map(m => `
+    <div class="admin-popup-match">
+      <div class="admin-popup-match-title">${adminMatchTitle(m)}</div>
+      <div class="admin-popup-match-meta">Rezultat: <strong style="color:var(--text2);">${m.notes || '—'}</strong><br>Poslao: ${pname(m.created_by_email)} · ${fmtDate(m.created_at)}</div>
+      <div class="admin-popup-actions">
+        <button class="btn-confirm" onclick="confirmMatchFromPopup('${m.id}')">✅ Potvrdi</button>
+        <button class="btn-reject" onclick="rejectMatchFromPopup('${m.id}')">❌ Odbij</button>
+      </div>
+    </div>`).join('');
+  box.innerHTML = `
+    <p style="font-size:0.86rem;color:var(--text2);line-height:1.55;margin-bottom:0.6rem;">Imaš ${pending.length} ${pending.length === 1 ? 'meč' : 'mečeva'} za admin potvrdu.</p>
+    <div class="admin-popup-list">${list}</div>
+    ${pending.length > 5 ? `<div style="font-size:0.78rem;color:var(--text3);margin-top:0.75rem;">Prikazano je prvih 5. Ostale možeš potvrditi u Admin panelu.</div>` : ''}
+    <button class="btn-primary" style="margin-top:1rem;background:var(--bg3);border:1px solid var(--border2);" onclick="closeModal('modal-admin-confirm-popup'); showSection('admin', document.getElementById('admin-nav-btn')); showAdminTab('confirm');">Otvori Admin potvrde</button>
+  `;
+}
+
+async function confirmMatchFromPopup(id) {
+  await confirmMatch(id);
+  const pending = getAdminPendingMatches();
+  if(pending.length) {
+    renderAdminConfirmPopup(pending);
+    openModal('modal-admin-confirm-popup');
+  } else {
+    adminConfirmPopupOpen = false;
+    closeModal('modal-admin-confirm-popup');
+  }
+}
+
+async function rejectMatchFromPopup(id) {
+  await rejectMatch(id);
+  const pending = getAdminPendingMatches();
+  if(pending.length) {
+    renderAdminConfirmPopup(pending);
+    openModal('modal-admin-confirm-popup');
+  } else {
+    adminConfirmPopupOpen = false;
+    closeModal('modal-admin-confirm-popup');
+  }
+}
+
 function renderAdminPanel() {
   if(!currentPlayer?.is_admin) {
     document.getElementById('admin-container').innerHTML = '<div class="empty">⛔ Nemaš admin ovlasti.</div>';
@@ -1729,6 +1820,12 @@ function exportLjestvica() {
   a.click();
   showToast('Ljestvica preuzeta! ↓', 'success');
 }
+
+
+document.addEventListener('visibilitychange', () => {
+  if(!document.hidden) maybeShowAdminConfirmPopup(true);
+});
+window.addEventListener('focus', () => maybeShowAdminConfirmPopup(true));
 
 async function init() {
   const ok = await handleAuth();
